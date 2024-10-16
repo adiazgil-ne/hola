@@ -303,6 +303,8 @@ footer {
             const video = document.getElementById('video');
             const shakaPlayer = new shaka.Player(video);
 
+	    window.shakaPlayer = shakaPlayer;
+		
             shakaPlayer.addEventListener('error', onErrorEvent);
 
             shakaPlayer.load('http://http://52.86.156.61/videos/Bach-Fugue_G_minor_360p.mpd').then(function() {
