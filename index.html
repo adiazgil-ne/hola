@@ -299,24 +299,31 @@ footer {
       </div>
      
 	 <script>
-        function initApp() {
+        async function initApp() {
             const video = document.getElementById('video');
             const shakaPlayer = new shaka.Player(video);
 
-	    window.shakaPlayer = shakaPlayer;
-		
-            shakaPlayer.addEventListener('error', onErrorEvent);
+			window.shakaPlayer = shakaPlayer;
 
-            shakaPlayer.load('http://http://52.86.156.61/videos/Bach-Fugue_G_minor_360p.mpd').then(function() {
-                console.log('El video se ha cargado correctamente!');
-            }).catch(onError);
+            shakaPlayer.addEventListener('error', onErrorEvent);
+			
+			try {
+                const manifestUri = 'http://http://52.86.156.61//videos/Bach-Fugue_G_minor_360p.mpd';
+                console.log('Loading video:', manifestUri);
+                await shakaPlayer.load(manifestUri);
+                console.log('The video has now been loaded!');
+            } catch (e) {
+                console.error('Error loading video:', e);
+            }
+            
         }
 
         function onErrorEvent(event) {
             console.error('Error code', event.detail.code, 'object', event.detail);
+            alert('An error occurred while trying to load the video. Check the console for details.');
         }
 
-        initApp();
+        document.addEventListener('DOMContentLoaded', initApp);
     </script>
 	 
     <!-- END OF MAIN CONTAINER -->
@@ -328,4 +335,3 @@ footer {
   </div>
 </body>
 </html>
-
