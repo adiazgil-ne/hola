@@ -5,6 +5,7 @@
   <title>Netflix</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/3.2.0/shaka-player.compiled.js"></script>
 
   <script src="main.js"></script>
   <style>
@@ -291,38 +292,30 @@ footer {
             <a href="videos/Bach-Fugue_G_minor_360p.mp4"><img src="https://github.com/adiazgil-ne/thumbnails/blob/main/Bach-Fugue_G_minor.png?raw=true" alt=""></a>
       </div>
      
-	<video id="video" width="640" height="480" controls></video>
+	<div>
+        <video id="video" controls></video>
+    </div>
 
     <script>
-	import shaka from "shaka-player";
+        async function initPlayer() {
+            const video = document.getElementById('video');
+            const player = new shaka.Player(video);
 
-	const exampleManifestUri = "/var/www/html/videos/Bach-Fugue_G_minor_360p.mpd";
+            player.addEventListener('error', (event) => {
+                console.error('Error code', event.detail.code, 'object', event.detail);
+            });
 
-	async function initPlayer() {
-	// Install polyfills to patch out browser incompatibilities
-		shaka.polyfill.installAll();
-	// Check if your browser supports Shaka at all
-		if (!shaka.Player.isBrowserSupported()) {
-			console.error("Browser not supported!");
-			return;
-		}
+            try {
+                await player.load('http://52.86.156.61/videos/Bach-Fugue_G_minor_360p/Bach-Fugue_G_minor_360p.mpd');  // <-- Change to your .mpd file URL
+                console.log('The video has successfully loaded!');
+            } catch (error) {
+                console.error('Error loading video:', error);
+            }
+        }
 
-		//Search for available video element and attach the player to it
-		const video = document.getElementById("video");
-		const player = new shaka.Player(video);
-		// listen for errors for further error handling
-		player.addEventListener("error", console.error);
-		try {
-			await player.load(exampleManifestUri);
-			console.log("player has loaded the video, you can play it now");
-		} catch (error) {
-			console.log(error);
-		}
-	}
-
-	document.addEventListener("DOMContentLoaded", initPlayer);
-	</script>
-	 
+        document.addEventListener('DOMContentLoaded', initPlayer);
+    </script>
+	
     <!-- END OF MAIN CONTAINER -->
 
     <!-- FOOTER -->
