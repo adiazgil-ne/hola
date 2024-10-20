@@ -268,8 +268,7 @@ footer {
 
     <!-- HEADER -->
     <header>
-      <div class="netflixLogo">
-        <a id="logo" href="#music"><img src="https://github.com/carlosavilae/Netflix-Clone/blob/master/img/logo.PNG?raw=true" alt="Logo Image"></a>
+      <div class="netflixLogo">https://github.com/adiazgil-ne/mecagoenlaputa/blob/main/logo.png?raw=true" alt="Logo Image"></a>
       </div>      
       <nav class="main-nav">
         <a href="#music">Music</a>
@@ -293,45 +292,50 @@ footer {
 			</div>
       </div>
 
-      <h1 id="originals">ClassicalTube Originals</h1>
+      <h1 id="originals">AnderTube Originals</h1>
       <div class="box">
             <a href="videos/Bach-Fugue_G_minor_360p.mp4"><img src="https://github.com/adiazgil-ne/thumbnails/blob/main/Bach-Fugue_G_minor.png?raw=true" alt=""></a>
       </div>
      
-	 <script>
-        async function initApp() {
-            const video = document.getElementById('video');
-            const shakaPlayer = new shaka.Player(video);
+	<video id="video" width="640" height="480" controls></video>
 
-			window.shakaPlayer = shakaPlayer;
+    <script>
+	import shaka from "shaka-player";
 
-            shakaPlayer.addEventListener('error', onErrorEvent);
-			
-			try {
-                const manifestUri = 'http://http://52.86.156.61//videos/Bach-Fugue_G_minor_360p.mpd';
-                console.log('Loading video:', manifestUri);
-                await shakaPlayer.load(manifestUri);
-                console.log('The video has now been loaded!');
-            } catch (e) {
-                console.error('Error loading video:', e);
-            }
-            
-        }
+	const exampleManifestUri = "videos/Bach-Fugue_G_minor_360p.mpd";
 
-        function onErrorEvent(event) {
-            console.error('Error code', event.detail.code, 'object', event.detail);
-            alert('An error occurred while trying to load the video. Check the console for details.');
-        }
+	async function initPlayer() {
+	// Install polyfills to patch out browser incompatibilities
+		shaka.polyfill.installAll();
+	// Check if your browser supports Shaka at all
+		if (!shaka.Player.isBrowserSupported()) {
+			console.error("Browser not supported!");
+			return;
+		}
 
-        document.addEventListener('DOMContentLoaded', initApp);
-    </script>
+		//Search for available video element and attach the player to it
+		const video = document.getElementById("video");
+		const player = new shaka.Player(video);
+		// listen for errors for further error handling
+		player.addEventListener("error", console.error);
+		try {
+			await player.load(exampleManifestUri);
+			console.log("player has loaded the video, you can play it now");
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	document.addEventListener("DOMContentLoaded", initPlayer);
+	</script>
 	 
     <!-- END OF MAIN CONTAINER -->
 
     <!-- FOOTER -->
     <footer>
-      <p>&copy 2024 ClassicalTube S.A.</p>
+      <p>&copy 2024 AnderTube S.A.</p>
     </footer>
   </div>
 </body>
 </html>
+
