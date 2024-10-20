@@ -207,12 +207,6 @@ footer {
     text-align: center;
   }
 
-  .netflixLogo {
-    max-width: 100%;
-    margin: auto;
-    padding-right: 20px;
-  }
-
   .main-nav {
     display: grid;
     grid-gap: 0px;
@@ -268,7 +262,7 @@ footer {
 
     <!-- HEADER -->
     <header>
-      <div class="netflixLogo">https://github.com/adiazgil-ne/mecagoenlaputa/blob/main/logo.png?raw=true" alt="Logo Image"></a>
+      <div> <img src="https://github.com/adiazgil-ne/mecagoenlaputa/blob/main/logo.png?raw=true" alt="Logo Image"></a>
       </div>      
       <nav class="main-nav">
         <a href="#music">Music</a>
@@ -302,7 +296,7 @@ footer {
     <script>
 	import shaka from "shaka-player";
 
-	const exampleManifestUri = "videos/Bach-Fugue_G_minor_360p.mpd";
+	const exampleManifestUri = "/var/www/html/videos/Bach-Fugue_G_minor_360p.mpd";
 
 	async function initPlayer() {
 	// Install polyfills to patch out browser incompatibilities
