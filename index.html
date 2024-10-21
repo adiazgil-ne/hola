@@ -303,9 +303,9 @@ footer {
 			const player = new shaka.Player(video);
 			const ui = video['ui'];
 			const config = {
-				'overflowMenuButtons' : ['quality']
+				'controlPanelElements': ['quality', 'time_and_duration', 'play_pause', 'mute', 'volume', 'fullscreen', 'rewind', 'fast_forward', 'picture_in_picture'],
 			}
-			player.ui.configure(config);
+			player.configure(config);
 
             player.addEventListener('error', (event) => {
 				console.error('Error code', event.detail.code, 'object', event.detail);
