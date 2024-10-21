@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Netflix</title>
+  <title>AnderTube</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/3.2.0/shaka-player.compiled.js"></script>
@@ -300,7 +300,12 @@ footer {
 		//import shaka from "shaka-player";
         async function initPlayer() {
             const video = document.getElementById('video');
-            const player = new shaka.Player(video);
+			const player = new shaka.Player(video);
+			//const ui = video['ui'];
+			const config = {
+				'overflowMenuButtons' : ['quality']
+			}
+			player.ui.configure(config);
 
             player.addEventListener('error', (event) => {
 				console.error('Error code', event.detail.code, 'object', event.detail);
@@ -316,7 +321,9 @@ footer {
             }
         }
 
-        document.addEventListener('DOMContentLoaded', initPlayer);
+        document.addEventListener('DOMContentLoaded', function() {
+			initPlayer();
+		});
     </script>
 	
     <!-- END OF MAIN CONTAINER -->
