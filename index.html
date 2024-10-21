@@ -301,7 +301,7 @@ footer {
         async function initPlayer() {
             const video = document.getElementById('video');
 			const player = new shaka.Player(video);
-			//const ui = video['ui'];
+			const ui = video['ui'];
 			const config = {
 				'overflowMenuButtons' : ['quality']
 			}
@@ -321,9 +321,7 @@ footer {
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-			initPlayer();
-		});
+        document.addEventListener('DOMContentLoaded', initPlayer);
     </script>
 	
     <!-- END OF MAIN CONTAINER -->
