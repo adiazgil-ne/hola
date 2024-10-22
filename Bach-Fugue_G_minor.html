@@ -266,8 +266,8 @@ footer {
       <div> <img src="https://github.com/adiazgil-ne/mecagoenlaputa/blob/main/logo.png?raw=true" alt="Logo Image"></a>
       </div>      
       <nav class="main-nav">
-        <a href="#music">Music</a>
-        <a href="#originals">Originals</a>    
+        <a href="index.html#music">Music</a>
+        <a href="index.html#originals">Originals</a>    
       </nav>
       <nav class="sub-nav">
         <a href="#"><i class="fas fa-search sub-nav-logo"></i></a>
@@ -286,7 +286,7 @@ footer {
 
     <script>
 		//import shaka from "shaka-player";
-        async function initPlayer() {
+        async function initPlayer_360() {
             const video = document.getElementById('video');
 			const player = new shaka.Player(video);
 
@@ -303,15 +303,42 @@ footer {
                 console.error('Error loading video:', error);
             }
         }
+		
+		async function initPlayer_720() {
+            const video = document.getElementById('video');
+			const player = new shaka.Player(video);
 
-        document.addEventListener('DOMContentLoaded', initPlayer);
+            player.addEventListener('error', (event) => {
+				console.error('Error code', event.detail.code, 'object', event.detail);
+				// You might also want to log the current segment being attempted
+				console.log('Current segment URI:', event.detail.data.uri);
+			});
+
+            try {
+                await player.load('http://52.86.156.61/videos/Bach-Fugue_G_minor_720p/Bach-Fugue_G_minor_720p.mpd');  // <-- Change to your .mpd file URL
+                console.log('The video has successfully loaded!');
+            } catch (error) {
+                console.error('Error loading video:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initPlayer_360);
     </script>
 	
 	<div class="btn-group" role="group" aria-label="Basic example">
-		<button type="button" class="btn btn-secondary">360p</button>
-		<button type="button" class="btn btn-secondary">720p</button>
+		<button type="button" class="btn btn-secondary" onclick = "360p()">360p</button>
+		<button type="button" class="btn btn-secondary" onclick = "720p()">720p</button>
 		<button type="button" class="btn btn-secondary">1080p</button>
 	</div>
+	
+	<script>
+		function 360p() {
+			document.addEventListener('DOMContentLoaded', initPlayer_360);
+		}
+		function 720p() {
+			document.addEventListener('DOMContentLoaded', initPlayer_720);
+		}
+</script>
 	
     <!-- END OF MAIN CONTAINER -->
 
