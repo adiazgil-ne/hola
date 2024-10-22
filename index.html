@@ -291,33 +291,6 @@ footer {
       <div class="box">
             <a href="Bach-Fugue_G_minor.html"><img src="https://github.com/adiazgil-ne/thumbnails/blob/main/Bach-Fugue_G_minor.png?raw=true" alt=""></a>
       </div>
-     
-	<div>
-        <video id="video" controls></video>
-    </div>
-
-    <script>
-		//import shaka from "shaka-player";
-        async function initPlayer() {
-            const video = document.getElementById('video');
-			const player = new shaka.Player(video);
-
-            player.addEventListener('error', (event) => {
-				console.error('Error code', event.detail.code, 'object', event.detail);
-				// You might also want to log the current segment being attempted
-				console.log('Current segment URI:', event.detail.data.uri);
-			});
-
-            try {
-                await player.load('http://52.86.156.61/videos/Bach-Fugue_G_minor_360p/Bach-Fugue_G_minor_360p.mpd');  // <-- Change to your .mpd file URL
-                console.log('The video has successfully loaded!');
-            } catch (error) {
-                console.error('Error loading video:', error);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', initPlayer);
-    </script>
 	
     <!-- END OF MAIN CONTAINER -->
 
