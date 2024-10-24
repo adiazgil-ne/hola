@@ -286,7 +286,7 @@ footer {
 
     <script>
 		//import shaka from "shaka-player";
-        async function initPlayer_360() {
+        async function initPlayer() {
             const video = document.getElementById('video');
 			const player = new shaka.Player(video);
 
@@ -303,38 +303,13 @@ footer {
                 console.error('Error loading video:', error);
             }
         }
-		
-		async function initPlayer_720() {
-            const video = document.getElementById('video');
-			const player = new shaka.Player(video);
 
-            player.addEventListener('error', (event) => {
-				console.error('Error code', event.detail.code, 'object', event.detail);
-				// You might also want to log the current segment being attempted
-				console.log('Current segment URI:', event.detail.data.uri);
-			});
-
-            try {
-                await player.load('http://52.86.156.61/videos/Bach-Fugue_G_minor_720p/Bach-Fugue_G_minor_720p.mpd');  // <-- Change to your .mpd file URL
-                console.log('The video has successfully loaded!');
-            } catch (error) {
-                console.error('Error loading video:', error);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', initPlayer_360);
-		
-		function 360p() {
-			document.addEventListener('DOMContentLoaded', initPlayer_360);
-		}
-		function 720p() {
-			document.addEventListener('DOMContentLoaded', initPlayer_720);
-		}
+        document.addEventListener('DOMContentLoaded', initPlayer);
     </script>
 	
 	<div class="btn-group" role="group" aria-label="Basic example">
-		<button type="button" class="btn btn-secondary" onclick = "360p()"> 360p </button>
-		<button type="button" class="btn btn-secondary" onclick = "720p()"> 720p </button>
+		<button type="button" class="btn btn-secondary"> 360p </button>
+		<button type="button" class="btn btn-secondary"> 720p </button>
 		<button type="button" class="btn btn-secondary"> 1080p </button>
 	</div>
 	
