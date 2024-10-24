@@ -299,6 +299,7 @@ footer {
 
     <script>
 		let player;
+		let currentTime = 0;
         async function initPlayer() {
             const video = document.getElementById('video');
 			player = new shaka.Player(video);
@@ -315,6 +316,10 @@ footer {
             } catch (error) {
                 console.error('Error loading video:', error);
             }
+			
+			video.addEventListener('timeupdate', () => {
+                currentTime = video.currentTime; // Store the current playback time
+            });
         }
 
         document.addEventListener('DOMContentLoaded', initPlayer);
@@ -322,8 +327,12 @@ footer {
 		async function changeResolution(mpdUrl) {
             if (player) {
                 try {
+					currentTime = video.currentTime;
+				
                     await player.load(mpdUrl);
                     console.log(`Loaded video from: ${mpdUrl}`);
+					
+					video.currentTime = currentTime;
                 } catch (error) {
                     console.error('Error switching resolution:', error);
                 }
