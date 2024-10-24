@@ -41,6 +41,19 @@ h1 {
   padding: 0;
 }
 
+#video-container {
+	margin: auto;
+	width: 640px;  /* Fixed width */
+	height: 360px; /* Fixed height */
+	position: relative;
+}
+
+video {
+	width: 100%; /* Keep the video responsive within the container */
+	height: 100%;
+	object-fit: cover; /* Ensures the video fits without distorting */
+}
+
 /* HEADER */
 header {
   padding: 20px 20px 0 20px;
@@ -285,10 +298,10 @@ footer {
     </div>
 
     <script>
-		//import shaka from "shaka-player";
+		let player;
         async function initPlayer() {
             const video = document.getElementById('video');
-			const player = new shaka.Player(video);
+			player = new shaka.Player(video);
 
             player.addEventListener('error', (event) => {
 				console.error('Error code', event.detail.code, 'object', event.detail);
